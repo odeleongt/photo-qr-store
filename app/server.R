@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(package = "qrcode")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -53,11 +54,7 @@ shinyServer(function(input, output, session) {
         
         png(outfile, width=width, height=height)
         
-        raster::image(
-            qrencoder::qrencode_raster(md5), 
-            asp=1, col=c("white", "black"), axes=FALSE, 
-            xlab="", ylab=""
-        )
+        qrcode::qrcode_gen(dataString = md5)
         
         dev.off()
         
